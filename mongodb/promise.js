@@ -9,18 +9,31 @@ const addSum = (a, b) => new Promise((resolve, reject) => {
 });
 
 // callback hell 이 개선된 모습
-addSum(10, 20)
-// addSum(10, 'ㅁ')
-    // .then(sum1 => {
-    //     console.log({ sum1 });
-    //     // return addSum(sum1, 'ab');
-    //     return addSum(sum1, 30);
-    // }) // 파라미터 하나면 () 빼도 됨
-    // .then(sum2 => console.log({ sum2 })) // 파라미터 하나면 () 빼도 됨
-    .then(sum => addSum(sum, 1))
-    .then(sum => addSum(sum, 1))
-    .then(sum => addSum(sum, 1))
-    .then(sum => addSum(sum, 1))
-    .then(sum => addSum(sum, 1))
-    .then(sum => console.log({ sum })) // 파라미터 하나면 () 빼도 됨
-    .catch(error => console.log({ error }));
+// addSum(10, 20)
+// // addSum(10, 'ㅁ')
+//     // .then(sum1 => {
+//     //     console.log({ sum1 });
+//     //     // return addSum(sum1, 'ab');
+//     //     return addSum(sum1, 30);
+//     // }) // 파라미터 하나면 () 빼도 됨
+//     // .then(sum2 => console.log({ sum2 })) // 파라미터 하나면 () 빼도 됨
+//     .then(sum => addSum(sum, 1))
+//     .then(sum => addSum(sum, 1))
+//     .then(sum => addSum(sum, 1))
+//     .then(sum => addSum(sum, 1))
+//     .then(sum => addSum(sum, 1))
+//     .then(sum => console.log({ sum })) // 파라미터 하나면 () 빼도 됨
+//     .catch(error => console.log({ error }));
+
+
+const totalSum = async () => {
+    try {
+        let sum = await addSum(10, 10);
+        let sum2 = await addSum(sum, 10);
+        console.log({ sum, sum2 });
+    } catch (err) {
+        console.log({ err });
+    }
+};
+
+console.log(totalSum());
