@@ -7,12 +7,13 @@ const addSum = (a, b, callback) => {
     }, 3000);
 };
 
-let callback = (error, sum) => {
-    if (error) {
-        return console.log({ error });
-    }
-    console.log({ sum });
-}
-
-// addSum(10, 20, callback);
-addSum(10, 'asdf', callback);
+// addSum(10, 'asdf', callback);
+// callback hell이 발생할 수 있음 - 복잡해짐
+addSum(10, 20, (error1, sum1) => {
+    if (error1) return console.log({ error1 });
+    console.log({ sum1 });
+    addSum(sum1, 15, (error2, sum2) => {
+        if (error2) return console.log({ error2 });
+        console.log({ sum2 });
+    });
+});
