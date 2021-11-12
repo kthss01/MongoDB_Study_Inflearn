@@ -1,0 +1,66 @@
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "name": "TaeHun",
+    "age": 30
+}
+
+###
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "username": "kthtim",
+    "name": "TaeHun",
+    "age": 30
+}
+
+###
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "username": "kthtim",
+    "name": {
+        "first": "TaeHun",
+        "last": "Kim"
+    },
+    "age": 31,
+    "email": "kthtim0704@gmail.com"
+}
+
+###
+GET http://localhost:3000/user
+Content-Type: application/json
+
+###
+GET http://localhost:3000/user/123
+Content-Type: application/json
+
+###
+GET http://localhost:3000/user/618df1b489fa22ebd46477b1
+Content-Type: application/json
+
+###
+DELETE http://localhost:3000/user/618df7d43191e3b001a577b3
+Content-Type: application/json
+
+###
+PUT http://localhost:3000/user/618df1b489fa22ebd46477b1
+Content-Type: application/json
+
+{    
+    "age": 50
+}
+
+###
+PUT http://localhost:3000/user/618df1b489fa22ebd46477b1
+Content-Type: application/json
+
+{    
+    "name": {
+        "first": "TAEHUN",
+        "last": "123"
+    }
+}
