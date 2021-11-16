@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { userRouter } = require('./routes/userRoute');
+const { userRouter, blogRouter } = require('./routes');
 const mongoose = require('mongoose');
 
 const MONGO_URI = 'mongodb+srv://admin:p0cF3wZXe55nWg0r@mongodbtutorial.m6hly.mongodb.net/BlogService?retryWrites=true&w=majority';
@@ -18,6 +18,7 @@ const server = async () => {
         app.use(express.json());
     
         app.use('/user', userRouter); // 미들웨어 추가
+        app.use('/blog', blogRouter);
         
         app.listen(3000, () => console.log("server listening on port 3000"));
     } catch (err) {

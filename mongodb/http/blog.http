@@ -1,0 +1,43 @@
+# 유저 생성
+GET http://localhost:3000/user
+Content-Type: application/json
+
+###
+# 블로그 생성
+POST http://localhost:3000/blog
+Content-Type: application/json
+
+{
+    "title": "second blog title",
+    "content": "second blog content",
+    "userId": "618df1b489fa22ebd46477b1"
+}
+
+###
+# 블로그 전체 조회
+GET http://localhost:3000/blog
+Content-Type: application/json
+
+###
+# 블로그 조회
+GET http://localhost:3000/blog/61934b15f18e7e648b5989e4
+Content-Type: application/json
+
+###
+# 블로그 수정
+PUT http://localhost:3000/blog/61934b15f18e7e648b5989e4
+Content-Type: application/json
+
+{
+    "title": "first blog title updated",
+    "content": "first blog content updated"
+}
+
+###
+# 블로그 부분 수정
+PATCH http://localhost:3000/blog/61934b15f18e7e648b5989e4/live
+Content-Type: application/json
+
+{
+    "islive": true
+}

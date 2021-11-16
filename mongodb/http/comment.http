@@ -1,0 +1,28 @@
+# comment 임시 테스트
+POST http://localhost:3000/blog/123/comment/456
+Content-Type: application/json
+
+###
+# Comment 생성 islive false 인 경우
+POST http://localhost:3000/blog/619350c5dbfea81d7ef367e3/comment
+Content-Type: application/json
+
+{
+    "content": "first comment",
+    "userId": "618df1b489fa22ebd46477b1"
+}
+
+###
+# Comment 생성 islive true 인 경우
+POST http://localhost:3000/blog/61934b15f18e7e648b5989e4/comment
+Content-Type: application/json
+
+{
+    "content": "second comment",
+    "userId": "618df1b489fa22ebd46477b1"
+}
+
+###
+# Comment 조회
+GET http://localhost:3000/blog/61934b15f18e7e648b5989e4/comment
+Content-Type: application/json

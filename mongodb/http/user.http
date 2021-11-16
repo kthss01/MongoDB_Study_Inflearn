@@ -1,3 +1,4 @@
+# 유저 생성 오류
 POST http://localhost:3000/user
 Content-Type: application/json
 
@@ -7,6 +8,7 @@ Content-Type: application/json
 }
 
 ###
+# 유저 생성
 POST http://localhost:3000/user
 Content-Type: application/json
 
@@ -17,6 +19,7 @@ Content-Type: application/json
 }
 
 ###
+# 유저 생성 다른 방법
 POST http://localhost:3000/user
 Content-Type: application/json
 
@@ -31,22 +34,27 @@ Content-Type: application/json
 }
 
 ###
+# 유저 전체 조회
 GET http://localhost:3000/user
 Content-Type: application/json
 
 ###
+# 유저 조회 오류
 GET http://localhost:3000/user/123
 Content-Type: application/json
 
 ###
+# 유저 조회
 GET http://localhost:3000/user/618df1b489fa22ebd46477b1
 Content-Type: application/json
 
 ###
+# 유저 삭제
 DELETE http://localhost:3000/user/618df7d43191e3b001a577b3
 Content-Type: application/json
 
 ###
+# 유저 나이 수정
 PUT http://localhost:3000/user/618df1b489fa22ebd46477b1
 Content-Type: application/json
 
@@ -55,6 +63,7 @@ Content-Type: application/json
 }
 
 ###
+# 유저 이름 수정
 PUT http://localhost:3000/user/618df1b489fa22ebd46477b1
 Content-Type: application/json
 
