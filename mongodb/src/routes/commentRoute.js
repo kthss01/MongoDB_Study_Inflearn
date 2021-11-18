@@ -47,6 +47,7 @@ commentRouter.get('/', async (req, res) => {
         }
 
         const comments = await Comment.find({ blog: blogId });
+        // const comments = await Comment.find({ blog: blogId }).limit(20);
         return res.send({ comments });
     } catch (err) {
         return res.status(400).send({ err: err.message });
