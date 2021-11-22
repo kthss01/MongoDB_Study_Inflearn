@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const userRouter = Router();
-const { User } = require('../models');
+const { User, Blog, Comment } = require('../models');
 const mongoose = require('mongoose');
 
 userRouter.get('', async (req, res) => {
@@ -53,7 +53,24 @@ userRouter.delete('/:userId', async (req, res) => {
         if (!mongoose.isValidObjectId(userId)) {
             return res.status(400).send({ err: "invalid userId" });  
         }
-        const user = await User.findOneAndDelete({ _id: userId });
+        // const user = await User.findOneAndDelete({ _id: userId });
+        // await Blog.deleteMany({ "user._id": userId });
+        // await Blog.updateMany(
+        //     { "comments.user": userId }, 
+        //     { $pull: { comments: { user: userId } } }
+        // );
+        // await Comment.deleteMany({ user: userId });
+
+        const [ user ] = await Promise.all([
+            User.findOneAndDelete({ _id: userId }),
+            Blog.deleteMany({ "user._id": userId }),
+            Blog.updateMany(
+                { "comments.user": userId }, 
+                { $pull: { comments: { user: userId } } }
+            ),
+            Comment.deleteMany({ user: userId }),
+        ]);
+
         return res.send({ user });
     } catch (err) {
         console.log(err);
@@ -87,10 +104,27 @@ userRouter.put('/:userId', async (req, res) => {
         // const user = await User.findByIdAndUpdate(userId, updateBody, { new: true });
 
         let user = await User.findById(userId);
-        console.log({ userBeforeEdit: user });
+        // console.log({ userBeforeEdit: user });
         if (age) user.age = age;
-        if (name) user.name = name;
-        console.log({ userAfterEdit: user });
+        // console.log({ name }, req.body);
+        if (name) {
+            user.name = name;
+            // await Blog.updateMany({ "user._id": userId }, { "user.name": name });
+            // await Blog.updateMany(
+            //     {}, 
+            //     { "comments.$[comment].userFullName": `${name.first} ${name.last}` },
+            //     { arrayFilters: [{ "comment.user": userId }] }
+            // );
+            await Promise.all([
+                Blog.updateMany({ "user._id": userId }, { "user.name": name }),
+                Blog.updateMany(
+                    {}, 
+                    { "comments.$[comment].userFullName": `${name.first} ${name.last}` },
+                    { arrayFilters: [{ "comment.user": userId }] }
+                )
+            ]);
+        }
+        // console.log({ userAfterEdit: user });
         
         await user.save();
         return res.send({ user });

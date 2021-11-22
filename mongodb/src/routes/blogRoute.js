@@ -10,24 +10,25 @@ blogRouter.post('/', async (req, res) => {
     try {
         const { title, content, islive, userId } = req.body;
         if (typeof title !== 'string') {
-            res.status(400).send({ err: 'title is required' });
+            return res.status(400).send({ err: 'title is required' });
         }
         if (typeof content !== 'string') {
-            res.status(400).send({ err: 'content is required' });
+            return res.status(400).send({ err: 'content is required' });
         }
-        if (islive && islive !== 'boolean') {
-            res.status(400).send({ err: 'islive must be a boolean' });
+        if (islive && typeof islive !== 'boolean') {
+            return res.status(400).send({ err: 'islive must be a boolean' });
         }
         if (!isValidObjectId(userId)) {
-            res.status(400).send({ err: 'userId is invalid' });
+            return res.status(400).send({ err: 'userId is invalid' });
         }
 
         let user = await User.findById(userId);
         if (!user) {
-            res.status(400).send({ err: 'user does not exist' });
+            return res.status(400).send({ err: 'user does not exist' });
         }
 
-        let blog = new Blog({ ... req.body, user });
+        let blog = new Blog({ ...req.body, user });
+        // let blog = new Blog({ ...req.body, user: user.toObject() });
         await blog.save();
         return res.send({ blog });
     } catch (err) {
@@ -45,11 +46,11 @@ blogRouter.get('/', async (req, res) => {
         const blogs = await Blog.find({})
             // .limit(20)
             // .limit(50)
-            .limit(200)
-            .populate([
-                { path: "user" }, 
-                { path: "comments", populate: { path: "user" } }
-            ]);
+            .limit(20)
+            // .populate([
+            //     { path: "user" }, 
+            //     { path: "comments", populate: { path: "user" } }
+            // ]);
 
         return res.send({ blogs });
     } catch (err) {

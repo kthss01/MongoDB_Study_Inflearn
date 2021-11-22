@@ -64,12 +64,17 @@ Content-Type: application/json
 
 ###
 # 유저 이름 수정
-PUT http://localhost:3000/user/618df1b489fa22ebd46477b1
+PUT http://localhost:3000/user/619b0b6761bb7fb73d4546a3
 Content-Type: application/json
 
 {    
     "name": {
         "first": "TAEHUN",
-        "last": "123"
+        "last": "KIM"
     }
 }
+
+###
+# 유저 삭제
+DELETE http://localhost:3000/user/619b0b6761bb7fb73d4546a3
+Content-Type: application/json

@@ -4,25 +4,39 @@ Content-Type: application/json
 
 ###
 # Comment 생성 islive false 인 경우
-POST http://localhost:3000/blog/619350c5dbfea81d7ef367e3/comment
+POST http://localhost:3000/blog/61972db7aa0f563774105c77/comment
 Content-Type: application/json
 
 {
     "content": "first comment",
-    "userId": "618df1b489fa22ebd46477b1"
+    "userId": "619729056334b57a5f8a0da1"
 }
 
 ###
 # Comment 생성 islive true 인 경우
-POST http://localhost:3000/blog/61934b15f18e7e648b5989e4/comment
+POST http://localhost:3000/blog/61972fbb0a2b6978fd72c038/comment
 Content-Type: application/json
 
 {
-    "content": "second comment",
-    "userId": "618df1b489fa22ebd46477b1"
+    "content": "mongodb 123456",
+    "userId": "619729056334b57a5f8a0da1"
 }
 
 ###
 # Comment 조회
-GET http://localhost:3000/blog/61934b15f18e7e648b5989e4/comment
+GET http://localhost:3000/blog/61978d0b127e4a95e12795e7/comment
 Content-Type: application/json
+
+###
+# Comment 수정
+PATCH http://localhost:3000/blog/61978d0b127e4a95e12795e7/comment/61978d0c127e4a95e12796d7
+Content-Type: application/json
+
+{
+    "content": "new Comment"
+}
+
+###
+# Comment 삭제
+DELETE http://localhost:3000/blog/619b0b6861bb7fb73d4546b8/comment/619b0b6961bb7fb73d454770
+Content-Type:  application/json

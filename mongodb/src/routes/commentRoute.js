@@ -19,7 +19,7 @@ commentRouter.post('/', async (req, res) => {
 
         const [ blog, user ] = await Promise.all([
             Blog.findById(blogId), 
-            User.findById(userId)
+            User.findById(userId),
         ]);
         // const blog = await Blog.findById(blogId);
         // const user = await User.findById(userId);
@@ -31,8 +31,20 @@ commentRouter.post('/', async (req, res) => {
             return res.status(400).send({ err: "blog is not available" });
         }
 
-        const comment = new Comment({ content, user, blog });
-        await comment.save();
+        const comment = new Comment({ 
+            content, 
+            user, 
+            userFullName: `${user.name.first} ${user.name.last}`, 
+            blog,
+        });
+
+        // await comment.save();
+        // await Blog.updateOne({ _id: blogId }, { $push: { comments: comment } });
+        await Promise.all([
+            comment.save(),
+            Blog.updateOne({ _id: blogId }, { $push: { comments: comment } }),
+        ]);
+
         return res.send({ comment });
     } catch (err) {
         return res.status(400).send({ err: err.message });
@@ -52,6 +64,40 @@ commentRouter.get('/', async (req, res) => {
     } catch (err) {
         return res.status(400).send({ err: err.message });
     }
+});
+
+commentRouter.patch("/:commentId", async (req, res) => {
+    const { commentId } = req.params;
+    const { content } = req.body;
+    if (typeof content !== 'string') {
+        return res.status(400).send({ err: "content is reqruied" });
+    }
+
+    const [ comment ] = await Promise.all([
+        Comment.findOneAndUpdate(
+            { _id: commentId }, 
+            { content }, 
+            { new: true },
+        ),
+        Blog.updateOne(
+            { 'comments._id': commentId },
+            { "comments.$.content": content },
+        ),
+    ]); 
+
+    return res.send({ comment });
+});
+
+commentRouter.delete("/:commentId", async (req, res) => {
+    const { commentId } = req.params;
+    const comment = await Comment.findOneAndDelete({ _id: commentId });
+
+    await Blog.updateOne(
+        { "comments._id": commentId }, 
+        { $pull: { comments: { _id: commentId } } }
+    );
+
+    return res.send({ comment });
 });
 
 module.exports = { commentRouter };

@@ -65,7 +65,7 @@ generateFakeData = async (userCount, blogsPerUser, commentsPerUser) => {
     await Blog.insertMany(blogs);
     console.log(`${blogs.length} fake blogs generated!`);
     await Comment.insertMany(comments);
-    console.log(`${comments} fake comments generated!`);
+    console.log(`${comments.length} fake comments generated!`);
     console.log("Complete!!");
 };
 
