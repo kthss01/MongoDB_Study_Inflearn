@@ -41,3 +41,8 @@ Content-Type: application/json
 {
     "islive": true
 }
+
+###
+# 블로그 전체 조회 pagenation
+GET http://localhost:3000/blog?page=0
+Content-Type: application/json

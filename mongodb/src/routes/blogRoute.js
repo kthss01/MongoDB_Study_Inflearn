@@ -43,10 +43,14 @@ blogRouter.get('/', async (req, res) => {
         // const blogs = await Blog.find({}).limit(20);
         // const blogs = await Blog.find({}).limit(2);
         
-        const blogs = await Blog.find({})
+        let { page } = req.query;
+        console.log({ page });
+        page = parseInt(page);
+
+        const blogs = await Blog.find({}).sort({ updatedAt: -1 }).skip(page * 3).limit(3)
             // .limit(20)
             // .limit(50)
-            .limit(20)
+            // .limit(20)
             // .populate([
             //     { path: "user" }, 
             //     { path: "comments", populate: { path: "user" } }
