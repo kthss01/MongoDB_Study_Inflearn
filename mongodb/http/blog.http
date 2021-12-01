@@ -10,7 +10,8 @@ Content-Type: application/json
 {
     "title": "second blog title",
     "content": "second blog content",
-    "userId": "619729056334b57a5f8a0da1"
+    "userId": "61a6d78ce25042094ed1d17d",
+    "islive": true
 }
 
 ###
@@ -20,7 +21,7 @@ Content-Type: application/json
 
 ###
 # 블로그 조회
-GET http://localhost:3000/blog/61972fbb0a2b6978fd72c038
+GET http://localhost:3000/blog/61a6d798e25042094ed1d180
 Content-Type: application/json
 
 ###
