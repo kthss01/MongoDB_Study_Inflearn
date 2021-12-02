@@ -7,11 +7,15 @@ const { generateFakeData } = require('../faker2');
 
 const server = async () => {
     
-    const { MONGO_URI } = process.env;
+    const { MONGO_URI, PORT } = process.env;
     // console.log({ MONGO_URI });
     
     if (!MONGO_URI) {
         throw new Error("MONGO_URI is required!!!");
+    }
+
+    if (!PORT) {
+        throw new Error("PORT is required!!");
     }
 
     // let monodbConnection = await mongoose.connect(MONGO_URI);
@@ -29,8 +33,8 @@ const server = async () => {
         app.use('/user', userRouter); // 미들웨어 추가
         app.use('/blog', blogRouter);
         
-        app.listen(3000, async () => {
-            console.log("server listening on port 3000");
+        app.listen(PORT, async () => {
+            console.log(`server listening on port ${PORT}`);
             // await generateFakeData(1000000, 10, 50);
             // await generateFakeData(10, 2, 10);
             // await generateFakeData(10, 10, 10);
