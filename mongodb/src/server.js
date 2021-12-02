@@ -5,9 +5,15 @@ const mongoose = require('mongoose');
 // const { generateFakeData } = require('../faker');
 const { generateFakeData } = require('../faker2');
 
-const MONGO_URI = 'mongodb+srv://admin:p0cF3wZXe55nWg0r@mongodbtutorial.m6hly.mongodb.net/BlogService?retryWrites=true&w=majority';
-
 const server = async () => {
+    
+    const { MONGO_URI } = process.env;
+    // console.log({ MONGO_URI });
+    
+    if (!MONGO_URI) {
+        throw new Error("MONGO_URI is required!!!");
+    }
+
     // let monodbConnection = await mongoose.connect(MONGO_URI);
     // console.log({ monodbConnection });
 
